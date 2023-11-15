@@ -1,148 +1,111 @@
-// // const person = {
-// //   firstName: "ElmoreNorth Clement",
-// //   lastName: "17",
+// let str = "javascript is for everyonne yo!".split(" ");
+// // console.log(str);
+// let result = "";
+// for (let i = 0; i < str.length; i++) {
+//   //i<5
+//   // console.log(str[i])
+//   // console.log(str);
+//   result = str[i].split("");
+//   i += 2;
+// }
+// console.log(result);
 
-// //   get fullName() {
-// //     return `${this.firstName} ${this.lastName}`
-// //   }
-// //   set fullName(namaBaru) {
-// //     this.nama = namaBaru;
-// //   }
-// // }
+//? 2 undefined di hitung 0
+// const fruits = ['banana','orange','lemon','apple','mango']
+// const citrus = fruits.slice(undefined,3)
+// console.log(citrus);
 
-// const obj = {
-//   nama: "John",
-//   get namaLengkap() {
-//     return this.nama;
-//   },
-//   set namaLengkap(namaBaru) {
-//     this.nama = namaBaru;
+//? 3 Boolean adalah methost true dan falsy hafalkan falsy
+// let a = ''
+// console.log(Boolean(a))
+
+//? 4 // number + 2 tidak merubah i
+// let number = 13;
+// let result = '';
+
+// while (number > 0) {
+//   number + 2;
+//   number--;
+
+// if (number % 3 === 0) continue;
+// result = result +number;
+// }
+// console.log(result);
+
+//? 5 // koma mempengaruhi jumlah array
+// const objUser = {
+//   username: 'userTest',
+//   password: '123',
+//   email: 'test123@gmail.com',
+//   intro: function () {
+//     return [
+//       'email saya ' + this.email + ' password saya ', this.password,
+//       ' hello bandung',
+//     ];
 //   },
 // };
 
-// console.log(obj.namaLengkap); // Menggunakan getter
-// obj.namaLengkap = "Doe"; // Menggunakan setter
-// console.log(obj.namaLengkap);
+// console.log(objUser.intro()[0]);
 
-// //
-// class Lingkaran {
-//   constructor(jariJari) {
-//     this._jariJari = jariJari;
-//   }
+//? 7
+// let str = '123'
+// let count = 1
+// let x = 0
 
-//   get jariJari() {
-//     return this._jariJari;
-//   }
-
-//   set jariJari(jariJariBaru) {
-//     if (jariJariBaru >= 0) {
-//       this._jariJari = jariJariBaru;
-//     } else {
-//       console.log("Jari-jari tidak boleh negatif.");
-//     }
-//   }
+// while (x<str.length){ // 4 false
+//   x=parseInt(str.charAt(x)) // 1=0, 2=1, 4=3
+//   count++ // ngulang 2 kali jadi total count 3
+//   x++ //3=2, 5=4
 // }
 
-// const lingkaran = new Lingkaran(5);
-// console.log(lingkaran.jariJari); // Menggunakan getter
-// lingkaran.jariJari = -3; // Menggunakan setter dengan nilai negatif
-// console.log(lingkaran.jariJari); // Nilai jari-jari tidak berubah
-// lingkaran.jariJari = 8; // Menggunakan setter dengan nilai positif
-// console.log(lingkaran.jariJari); // Nilai jari-jari berubah menjadi 8
+// console.log(count + x) // 3 tambah 4 = 7
 
-//*
-// let peopole = {
-//   name: "azzam",
-//   age: 28,
-// };
-// const { name, age } = peopole;
+//? 8
+// let number = 89 + 43 + 65 - 23 + 93 * 23 + 8;
+// number - 0.5;
+// number * 300;
+// number--; //hanya ini yang akan di eksekusi
 
-// console.log(name);
+// console.log(number);
 
-// class User {
-//   name = "";
-//   constructor(name) {
-//     this.name = name;
-//   }
-//   greeting() {
-//     console.log(`Hello ${this.name}`);
-//   }
+//? 9 
+// console.log(typeof console.log());
+
+//! 10
+// let qty =3
+// if(!isNaN(parseInt(qty.match())){
+//   console.log('ini bukan number');
+// } else {
+//   console.log('ini number');
 // }
+// console.log(parseInt(qty.match(/^-?\d+$/)));
 
-// const user = new User("david");
-// user.greeting();
-// console.log(user.name);
+//? 11 true=1 dan false=0
+// let arr = [
+//   '5',
+//   [['2.7'],[false]],
+//   true,
+//   'false',
+//   0.5,
+//   [[9], 0.3 [NaN, undefined, 'true']],
+//   null,
+//   '0',
+//   undefined,
+// ];
 
-//*
-// class Mobil {
-//   constructor(merek) {
-//     this.merek = merek; // Properti publik
-//   }
+// console.log(Boolean(arr[1][2])+Boolean(arr[5][0]));
+// console.log(Boolean(arr[1][2]))
+// console.log(Boolean(arr[5][0]));
 
-//   getInfo() {
-//     return `Merek: ${this.merek}`;
-//   }
-// }
+// let bulean = true
+// let number = true
+// console.log(number+bulean);
 
-// const mobilBaru = new Mobil('Toyota');
-// console.log(mobilBaru.merek); // Mengakses properti publik
+//? 12
+let result = 20
 
-//*
-// class Mobil {
-//   #merek; // Properti privat
-
-//   constructor(merek) {
-//     this.#merek = merek;
-//   }
-
-//   get Info() {
-//     return `Merek: ${this.#merek}`;
-//   }
-//   set info(value){
-//     return 
-//   }
-// }
-
-
-// const mobilBaru = new Mobil('Toyota');
-// console.log(mobilBaru.#merek); // Akan menghasilkan kesalahan karena properti privat
-
-class Mobil {
-  #merek; // Properti privat
-
-  constructor(merek) {
-    this.#merek = merek;
-  }
-
-  getMerek() {
-    return this.#merek; // Metode untuk mengakses properti privat
-  }
-
-  setMerek(newMerek) {
-    this.#merek = newMerek; // Metode untuk mengubah properti privat
-  }
+function a(){
+  console.log(result);
 }
 
-const mobilBaru = new Mobil('Toyota');
-
-console.log(mobilBaru.getMerek()); // Menggunakan metode untuk mengakses properti privat
-mobilBaru.setMerek('Honda'); // Menggunakan metode untuk mengubah properti privat
-console.log(mobilBaru.getMerek()); // Menggunakan metode untuk mengakses properti privat setelah perubahan
-
-
-//*
-// class Lingkaran {
-//   static pi = 3.14; // Properti statis
-
-//   constructor(jariJari) {
-//     this.jariJari = jariJari;
-//   }
-
-//   hitungLuas() {
-//     return Lingkaran.pi * this.jariJari * this.jariJari; // Mengakses properti statis
-//   }
-// }
-
-// console.log(Lingkaran.pi); // Mengakses properti statis langsung dari kelas
-// const lingkaran = new Lingkaran(5);
-// console.log(lingkaran.hitungLuas()); // Mengakses properti statis melalui instance objek
+function 
