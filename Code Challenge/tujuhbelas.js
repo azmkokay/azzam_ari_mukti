@@ -1,133 +1,56 @@
-//* ======= 1
-// function mergeArrays(arr1, arr2) {
-//     const idSet = new Set();
-//     const result = [];
-  
-//     // Process arr1
-//     for (const obj of arr1) {
-//       result.push({ ...obj });
-//       idSet.add(obj.id);
-//     }
-  
-//     // Process arr2
-//     for (const obj of arr2) {
-//       if (!idSet.has(obj.id)) {
-//         result.push({ ...obj });
-//         idSet.add(obj.id);
-//       } else {
-//         // Merge properties for existing id
-//         const existingObj = result.find(item => item.id === obj.id);
-//         Object.assign(existingObj, obj);
-//       }
-//     }
-  
-//     // Sort the result array based on id
-//     result.sort((a, b) => a.id - b.id);
-  
-//     return result;
-//   }
-  
-//   // Example usage
-//   const arr1 = [
-//     {"id": 1, "x": 1},
-//     {"id": 2, "x": 9}
-//   ];
-  
-//   const arr2 = [
-//     {"id": 3, "x": 5}
-//   ];
-  
-//   const joinedArray = mergeArrays(arr1, arr2);
-//   console.log(joinedArray);
+var promiseAll = function(functions) {
+  return new Promise((resolve, reject) => {
+    const results = [];
+    let completedCount = 0;
+    let hasRejected = false;
 
-  //* ========== 2
-//   function mergeArrays(arr1, arr2) {
-//     const idSet = new Set();
-//     const result = [];
-  
-//     // Process arr1
-//     for (const obj of arr1) {
-//       result.push({ ...obj });
-//       idSet.add(obj.id);
-//     }
-  
-//     // Process arr2
-//     for (const obj of arr2) {
-//       if (!idSet.has(obj.id)) {
-//         result.push({ ...obj });
-//         idSet.add(obj.id);
-//       } else {
-//         // Merge properties for existing id
-//         const existingObj = result.find(item => item.id === obj.id);
-//         Object.assign(existingObj, obj);
-//       }
-//     }
-  
-//     // Sort the result array based on id
-//     result.sort((a, b) => a.id - b.id);
-  
-//     return result;
-//   }
-  
-//   // Example usage
-//   const arr1 = [
-//     {"id": 1, "x": 2, "y": 3},
-//     {"id": 2, "x": 3, "y": 6}
-//   ];
-  
-//   const arr2 = [
-//     {"id": 2, "x": 10, "y": 20},
-//     {"id": 3, "x": 0, "y": 0}
-//   ];
-  
-//   const joinedArray = mergeArrays(arr1, arr2);
-//   console.log(joinedArray);
+    function checkCompletion() {
+      if (completedCount === functions.length) {
+        if (hasRejected) {
+          reject(results.find((result) => result.status === 'rejected').reason);
+        } else {
+          resolve({
+            t: Date.now(),
+            resolved: results.filter((result) => result.status === 'resolved').map((result) => result.value),
+          });
+        }
+      }
+    }
 
-//* ========= 3
-// function mergeArrays(arr1, arr2) {
-//     const idSet = new Set();
-//     const result = [];
-  
-//     // Process arr1
-//     for (const obj of arr1) {
-//       result.push({ ...obj });
-//       idSet.add(obj.id);
-//     }
-  
-//     // Process arr2
-//     for (const obj of arr2) {
-//       if (!idSet.has(obj.id)) {
-//         result.push({ ...obj });
-//         idSet.add(obj.id);
-//       } else {
-//         // Merge properties for existing id
-//         const existingObj = result.find(item => item.id === obj.id);
-//         // Merge properties for nested objects and arrays
-//         Object.entries(obj).forEach(([key, value]) => {
-//           if (typeof value === 'object' && !Array.isArray(value)) {
-//             existingObj[key] = { ...existingObj[key], ...value };
-//           } else {
-//             existingObj[key] = value;
-//           }
-//         });
-//       }
-//     }
-  
-//     // Sort the result array based on id
-//     result.sort((a, b) => a.id - b.id);
-  
-//     return result;
-//   }
-  
-//   // Example usage
-//   const arr1 = [
-//     {"id": 1, "b": {"b": 94},"v": [4, 3], "y": 48}
-//   ];
-  
-//   const arr2 = [
-//     {"id": 1, "b": {"c": 84}, "v": [1, 3]}
-//   ];
-  
-//   const joinedArray = mergeArrays(arr1, arr2);
-//   console.log(joinedArray);
-  
+    functions.forEach((func, index) => {
+      func()
+        .then((value) => {
+          results[index] = { status: 'resolved', value };
+        })
+        .catch((reason) => {
+          results[index] = { status: 'rejected', reason };
+          hasRejected = true;
+        })
+        .finally(() => {
+          completedCount++;
+          checkCompletion();
+        });
+    });
+  });
+};
+
+// Example 1
+const functions1 = [
+  () => new Promise(resolve => setTimeout(() => resolve(5), 200)),
+];
+promiseAll(functions1).then(console.log).catch(console.error);
+
+// Example 2
+const functions2 = [
+  () => new Promise(resolve => setTimeout(() => resolve(1), 200)),
+  () => new Promise((resolve, reject) => setTimeout(() => reject("Error"), 100)),
+];
+promiseAll(functions2).then(console.log).catch(console.error);
+
+// Example 3
+const functions3 = [
+  () => new Promise(resolve => setTimeout(() => resolve(4), 50)),
+  () => new Promise(resolve => setTimeout(() => resolve(10), 150)),
+  () => new Promise(resolve => setTimeout(() => resolve(16), 100)),
+];
+promiseAll(functions3).then(console.log).catch(console.error);

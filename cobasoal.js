@@ -1,124 +1,166 @@
-/** @format */
-// buat sebuah class tokopedia
-// dimana setiap produk memiliki categori yang berbeda beda
-// pada saat belanja bisa add to cart
-// terdapat stock di dalam produk
-// apabila stock lebih sedikit dari pada request add to cart maka dia akan error
-// bisa checkout, pada saat checkout cart akan kosong dan stock akan berkurang
-// menu untuk menambahkan produk, edit produk, delete produk
+// let str = "javascript is for everyonne yo!".split(" ");
+// // console.log(str);
+// let result = "";
+// for (let i = 0; i < str.length; i++) {
+//   //i<5
+//   // console.log(str[i])
+//   // console.log(str);
+//   result = str[i].split("");
+//   i += 2;
+// }
+// console.log(result);
 
-// produk, name, stock, category , warna, price
+//? 2 undefined di hitung 0
+// const fruits = ['banana','orange','lemon','apple','mango']
+// const citrus = fruits.slice(undefined,3)
+// console.log(citrus);
 
-// category 2
-// pakaian => ukuran, brand
-// buku => author,totalPage
+//? 3 Boolean adalah methost true dan falsy hafalkan falsy
+// let a = ''
+// console.log(Boolean(a))
 
-// ada class tokopedia
-// tokopedia akan memiliki banyak produk yg beda category
-// produk yg ada bisa dipindahkan ke cart
-// setiap product punya stock masing masing
-// pada saat add to cart akan membutuhkan qty product (product,qty)
-// pada saat addtocart produk yg qty lebih kecil dari stock maka akan error
-// terdapat function checkout untuk membayar produk di keranjang
-// pada saat produk berhasil terbayar, cart akan kosong dan stock product akan berkurang
+//? 4 // number + 2 tidak merubah i
+// let number = 13;
+// let result = '';
 
-class Product {
-    constructor(name, stock, category, warna, price) {
-      this.name = name;
-      this.stock = stock;
-      this.category = category;
-      this.warna = warna;
-      this.price = price;
-    }
-  }
-  
-  class Pakaian extends Product {
-    constructor(name, stock, warna, price, size, brand) {
-      super(name, stock, "pakaian", warna, price); // constructor product
-      this.size = size;
-      this.brand = brand;
-    }
-  }
-  
-  class Buku extends Product {
-    constructor(name, stock, warna, price, author, totalPage) {
-      super(name, stock, "buku", warna, price);
-      this.author = author;
-      this.totalPage = totalPage;
-    }
-  }
-  
-  class Tokopedia {
-    #products = []; //menampung produk
-    #carts = []; // keranjang belanja
-  
-    showProducts() {
-      //munculkan seluruh produk yg ada
-      this.#products.forEach((product) => console.log(product));
-    }
-    addProduct(product) {
-      if (product instanceof Product) {
-        const check = this.#products.findIndex((p) => p.name == product.name); //cek apakah produk yg mau diinput udah ada diproduk atau belum?
-        if (check == -1)
-          this.#products.push(product); //input produk ke dalam array products
-        else console.log("product sudah terdaftar");
-      } else {
-        console.log("product tidak jelas");
-      }
-    }
-    addToCart(nama, qty) {
-      const idxProduct = this.#products.findIndex(
-        (product) => product.name.toLowerCase() == nama.toLowerCase()
-      );
-  
-      if (idxProduct == -1) return console.log("product tidak ditemukan");
-  
-      const { name, price, stock } = this.#products[idxProduct];
-  
-      if (qty > stock) return console.log("qty melebihi stock");
-      const idxCart = this.#carts.findIndex(
-        (product) => product.name.toLowerCase() == nama.toLowerCase()
-      );
-  
-      if (idxCart == -1) this.#carts.push({ name, qty, price: qty * price });
-      else this.#carts.splice(idxCart, 1, { name, qty, price: qty * price });
-      console.log("product berhasil ditambahkan");
-    }
-    showCarts() {
-      if (!this.#carts.length) return console.log("cart kosong");
-      this.#carts.forEach((product) => console.log(product));
-    }
-    checkOut(payment = 0) {
-      if (!this.#carts.length) return console.log("cart masih kosong");
-      const total = this.#carts.reduce((sum, current) => sum + current.price, 0);
-      if (payment < total)
-        return console.log("uang anda kurang", total - payment);
-      else {
-        this.#carts.forEach((product) => {
-          const productIndex = this.#products.findIndex(
-            (val) => val.name == product.name
-          );
-          this.#products[productIndex].stock -= product.qty; // products[0].stock = 90
-        });
-        this.#carts = [];
-        console.log("kembalian anda", payment - total);
-      }
-    }
-  }
-  
-  const tokped = new Tokopedia();
-  tokped.addProduct(
-    new Buku("naruto", 100, "putih", 7000, "masashi kishimoto", 100)
-  );
-  tokped.addProduct(new Pakaian("kemeja H&M", 10, "biru", 300000, "xl", "H&M"));
-  
-  tokped.addProduct("hehehe");
-  
-  tokped.addToCart("naruto", 10);
-  
-  tokped.showProducts();
-  // tokped.addToCart("naruto", 100);
-  tokped.showCarts();
-  tokped.checkOut(100000);
-  tokped.showCarts();
-  tokped.showProducts();
+// while (number > 0) {
+//   number + 2;
+//   number--;
+
+// if (number % 3 === 0) continue;
+// result = result +number;
+// }
+// console.log(result);
+
+//? 5 // koma mempengaruhi jumlah array
+// const objUser = {
+//   username: 'userTest',
+//   password: '123',
+//   email: 'test123@gmail.com',
+//   intro: function () {
+//     return [
+//       'email saya ' + this.email + ' password saya ', this.password,
+//       ' hello bandung',
+//     ];
+//   },
+// };
+
+// console.log(objUser.intro()[0]);
+
+//? 7
+// let str = '123'
+// let count = 1
+// let x = 0
+
+// while (x<str.length){ // 4 false
+//   x=parseInt(str.charAt(x)) // 1=0, 2=1, 4=3
+//   count++ // ngulang 2 kali jadi total count 3
+//   x++ //3=2, 5=4
+// }
+
+// console.log(count + x) // 3 tambah 4 = 7
+
+//? 8
+// let number = 89 + 43 + 65 - 23 + 93 * 23 + 8;
+// number - 0.5;
+// number * 300;
+// number--; //hanya ini yang akan di eksekusi
+
+// console.log(number);
+
+//? 9
+// console.log(typeof console.log());
+
+//! 10
+// let qty =3
+// if(!isNaN(parseInt(qty.match())){
+//   console.log('ini bukan number');
+// } else {
+//   console.log('ini number');
+// }
+// console.log(parseInt(qty.match(/^-?\d+$/)));
+
+//? 11 true=1 dan false=0
+// let arr = [
+//   '5',
+//   [['2.7'],[false]],
+//   true,
+//   'false',
+//   0.5,
+//   [[9], 0.3 [NaN, undefined, 'true']],
+//   null,
+//   '0',
+//   undefined,
+// ];
+
+// console.log(Boolean(arr[1][2])+Boolean(arr[5][0]));
+// console.log(Boolean(arr[1][2]))
+// console.log(Boolean(arr[5][0]));
+
+// let bulean = true
+// let number = true
+// console.log(number+bulean);
+
+//! 12
+// let arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+// let a = arr.map((el) => Math.round(el));
+// let b = arr.forEach((el) => {
+//   Math.ceil(el);
+// });
+// let c = arr.filter((el) => {
+//   el < 3;
+// });
+// console.log(a);
+
+//! 13
+// let result = 20;
+
+// function a() {
+//   console.log(result);
+// }
+
+// function b() {
+//   var result = 30;
+//   c();
+// }
+
+// function c() {
+//   var result = 35;
+//   a();
+// }
+
+// b();
+
+//? 14
+// let xx = '1234567' //'1234567333'
+// let yy = '12,34,56,7'
+// let res = 0
+// function compare(a,b){
+//   console.log(a+b)// 7+10  8+10  9+10
+// }
+// do{
+//   compare(xx.length, yy.length)// 7,10  8,10  9,10
+//   xx += 3
+// } while (xx.length < yy.length) // 10<10 false
+
+//? 15
+let arr = [
+  3,
+  [4, 5, 6, 7, [5, 3, 2, 1, 5]],
+  9,
+  10,
+  54,
+  32,
+  3,
+  45,
+  6,
+  7,
+  8,
+  [
+    [1, 2, 3, 4, 5, 6, 7, [4, 4, 3, 2, 1]],
+    [2, 3, 4, 5, 6],
+  ],
+];
+
+console.log(arr[11][0][1]);
